@@ -1,3 +1,3 @@
 # CPSC_2150
 
-Hummmm
+This repo stores all the assignments and labs.
