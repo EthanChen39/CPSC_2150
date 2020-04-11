@@ -26,7 +26,7 @@ public:
     //Operator overloading
     bool operator==(const point& p);
     point& operator=(const point& p);
-    friend std::ostream& operator<<(std::ostream& out, const point& p);
+    friend ostream& operator<<(std::ostream& out, const point& p);
     vector<point> prev;
 private:
     //Data members
