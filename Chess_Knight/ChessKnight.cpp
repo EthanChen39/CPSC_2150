@@ -8,7 +8,7 @@
 
 
 #include <queue>
-#include "point.h"
+#include "point.cpp"
 
 using namespace std;
 
@@ -46,11 +46,11 @@ void getUserInput(int userMoves[][2]){
     int startRow, startCol;
     cout << "Enter the current Knight’s location: ";
     cin >> startRow >> startCol;
-    while(startRow < 0 || startRow > 8){
+    while(startRow < 0 || startRow > 7){
         cout << "Invalid value for startX! Please re-enter: ";
         cin >> startRow;
     }
-    while(startCol < 0 || startCol > 8){
+    while(startCol < 0 || startCol > 7){
         cout << "Invalid value for startY! Please re-enter: ";
         cin >> startCol;
     }
@@ -59,11 +59,11 @@ void getUserInput(int userMoves[][2]){
     cout << "Enter the destination location: ";
     cin >> endRow >> endCol;
 
-    while(endRow < 0 || endRow > 8){
+    while(endRow < 0 || endRow > 7){
         cout << "Invalid value for endX! Please re-enter: ";
         cin >> endRow;
     }
-    while(endCol < 0 || endCol > 8){
+    while(endCol < 0 || endCol > 7){
         cout << "Invalid value for endY! Please re-enter: ";
         cin >> endCol;
     }
