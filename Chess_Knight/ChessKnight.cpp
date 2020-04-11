@@ -73,7 +73,6 @@ void getUserInput(int userMoves[][2]){
     userMoves[1][0] = endRow;
     userMoves[1][1] = endCol;
 
-
 }
 
 /**
