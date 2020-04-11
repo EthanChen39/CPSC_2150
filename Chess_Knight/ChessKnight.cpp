@@ -8,7 +8,7 @@
 
 
 #include <queue>
-#include "point.cpp"
+#include "point.h"
 
 using namespace std;
 
