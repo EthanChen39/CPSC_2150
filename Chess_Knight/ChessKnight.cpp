@@ -1,25 +1,46 @@
+/*
+ * Name: Shixi Chen (Ethan)
+ * ID: 100304065
+ * Instructor: Bita Shadgar
+ * Section: CPSC 2150 - 001
+ * AVL.cpp: This program is to knight shortest path.
+*/
+
+
 #include <queue>
-#include <vector>
-#include "point.cpp"
+#include "point.h"
 
 using namespace std;
 
 void getUserInput(int userMoves[][2]);
-void knight_moves(int userMoves[][2], vector<point>& result);
+vector<point> knight_moves(int userMoves[][2]);
 bool isValidPoint(int x, int y);
 
 const int SIZE_OF_BOARD = 8;
 
 int main(){
     int userMoves[2][2];
-    vector<point> result;
     getUserInput(userMoves);
-    knight_moves(userMoves, result);
-    for (int i = 0; i < result[0].prev.size(); ++i) {
-        cout << result[0].prev[i] << endl;
+    vector<point> result = knight_moves(userMoves);
+
+    int startRow = userMoves[0][0], startCol = userMoves[0][1];
+    int endRow = userMoves[1][0], endCol = userMoves[1][1];
+
+    //Display result
+    cout << "You made it in "<< result.size() - 1 <<" moves from [" <<
+         startRow << ", " << startCol << "] to ["
+         << endRow << ", " << endCol << "]! Here is your path:  " << endl;
+
+    //Display coordinates
+    for (int i = 0; i < result.size(); ++i) {
+        cout << result[i] << endl;
     }
 }
 
+/**
+ * Get user's input
+ * @param userMoves, pass by reference - an array contains the start and goal coordinates
+ */
 void getUserInput(int userMoves[][2]){
     //Get user input - start coordinate
     int startRow, startCol;
@@ -55,13 +76,24 @@ void getUserInput(int userMoves[][2]){
 
 }
 
+/**
+ * Check whether the input coordinate is valid or not
+ * @param x
+ * @param y
+ * @return true - valid, false - invalid
+ */
 bool isValidPoint(int x, int y){
     bool valid = (x >= 0 && x <= 7) && (y >= 0 && y <= 7);
     return valid;
 }
 
 
-void knight_moves(int userMoves[][2], vector<point>& result) {
+/**
+ * Major function
+ * @param userMoves, user's input
+ * @return a vector of points
+ */
+vector<point> knight_moves(int userMoves[][2]) {
     //Initialize variables
     //available movement for knight in x and y
     int dx[] = {-2, -2, -1, -1, 1, 1, 2, 2};
@@ -93,12 +125,7 @@ void knight_moves(int userMoves[][2], vector<point>& result) {
         //check whether this is the destination
         if (temp == endPoint) {
             temp.prev.push_back(endPoint);
-            result.push_back(temp);
-            //Display result
-            cout << "You made it in "<< temp.prev.size() - 1 <<" moves from [" <<
-                 startRow << ", " << startCol << "] to ["
-                 << endRow << ", " << endCol << "]! Here is your path:  " << endl;
-            return;
+            return temp.prev;
         }
 
         for (int i = 0; i < SIZE_OF_BOARD; ++i) {
@@ -109,9 +136,11 @@ void knight_moves(int userMoves[][2], vector<point>& result) {
                 visited[tryRow][tryCol] = true;
                 //New Point
                 point validPoint(tryRow, tryCol);
+                //Copy all the previous path into the new cell
                 for (int j = 0; j < temp.prev.size(); ++j) {
                     validPoint.prev.push_back(temp.prev[j]);
                 }
+                //Copy the current cell
                 validPoint.prev.push_back(temp);
                 q.push(validPoint);
             }
@@ -119,6 +148,5 @@ void knight_moves(int userMoves[][2], vector<point>& result) {
         }
     }
 
-
-
+    return startPoint.prev;
 }
