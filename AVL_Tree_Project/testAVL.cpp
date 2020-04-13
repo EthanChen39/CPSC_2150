@@ -9,7 +9,7 @@
 #include <ctime>
 #include <iostream>
 #include <fstream>
-#include "AVL.cpp"
+#include "AVL.h"
 
 using namespace std;
 
