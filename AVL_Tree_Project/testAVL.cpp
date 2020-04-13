@@ -5,47 +5,50 @@
  * Section: CPSC 2150 - 001
  * testAVL.cpp: This program is to test the functionality of AVL class
 */
+
+#include <ctime>
 #include <iostream>
 #include <fstream>
-#include <ctime>
 #include "AVL.cpp"
 
 using namespace std;
 
+
 int getInput();
-void genInputFile(int numberOfNodes, const string& fileName);
-AVL<int> BuildAVLTree(const string& fileName);
-void printAVL(AVL<int>& tree);
-void InsertNodeAVL(AVL<int>& tree, int node);
-void DeleteNodeAVL(AVL<int>& tree, int node);
+void generateInputFile(int numberOfNodes, const string& fileName);
+AVL<int>* BuildAVLTree(const string& fileName);
+void printAVL(AVL<int>* tree);
+void InsertNodeAVL(AVL<int>* tree, int node);
+void DeleteNodeAVL(AVL<int>* tree, int node);
 void DeleteAVLTree(AVL<int>* tree);
 
 int main(){
     string fileName = "AVLTree.txt";
-    AVL<int> avl;
+    AVL<int>* avl;
     int node;
 
     int n = getInput();
-    genInputFile(n, fileName);
+    generateInputFile(n, fileName);
     avl = BuildAVLTree(fileName);
-    cout << "height of AVL tree is:" << avl.height() << endl;
+    cout << "height of AVL tree is:" << avl->height() << endl;
     printAVL(avl);
     cout << endl;
 
     cout << "Enter a value to insert: ";
     cin >> node;
     InsertNodeAVL(avl, node);
-    cout << "height of AVL tree is:" << avl.height() << endl;
+    cout << "height of AVL tree is:" << avl->height() << endl;
     printAVL(avl);
     cout << endl;
 
     cout << "Enter a value to delete: " ;
     cin >> node;
     DeleteNodeAVL(avl, node);
-    cout << "height of AVL tree is: " << avl.height() << endl;
+    cout << "height of AVL tree is: " << avl->height() << endl;
     printAVL(avl);
+    cout << endl;
 
-    DeleteAVLTree(&avl);
+    DeleteAVLTree(avl);
     cout << "After the tree is deleted: \n";
     printAVL(avl);
 
@@ -63,7 +66,7 @@ int getInput(){
     return result;
 }
 
-void genInputFile(int numberOfNodes, const string& fileName){
+void generateInputFile(int numberOfNodes, const string& fileName){
     srand(time(NULL));
     ofstream myFile(fileName);
     myFile << numberOfNodes << endl;
@@ -73,34 +76,34 @@ void genInputFile(int numberOfNodes, const string& fileName){
     }
 }
 
-AVL<int> BuildAVLTree(const string& fileName){
-    AVL<int> result;
+AVL<int>* BuildAVLTree(const string& fileName){
+    AVL<int>* result = new AVL<int>();
     ifstream myFile(fileName);
     string line;
     getline(myFile, line);
     int numberOfNodes = stoi(line);
     for (int i = 0; i < numberOfNodes; ++i) {
         getline(myFile, line);
-        result.insert(stoi(line));
+        result->insert(stoi(line));
     }
     return result;
 }
 
-void printAVL(AVL<int>& tree){
+void printAVL(AVL<int>* tree){
     cout << "In-Order traversal: ";
-    tree.printInOrder();
+    tree->printInOrder();
     cout << endl;
     cout << "Pre-Order traversal: ";
-    tree.printPreOrder();
+    tree->printPreOrder();
     cout << endl;
 }
 
-void InsertNodeAVL(AVL<int>& tree, int node){
-    tree.insert(node);
+void InsertNodeAVL(AVL<int>* tree, int node){
+    tree->insert(node);
 }
 
-void DeleteNodeAVL(AVL<int>& tree, int node){
-    tree.deleteByCopying(node);
+void DeleteNodeAVL(AVL<int>* tree, int node){
+    tree->deleteByCopying(node);
 }
 
 void DeleteAVLTree(AVL<int>* tree){

@@ -3,7 +3,7 @@
  * ID: 100304065
  * Instructor: Bita Shadgar
  * Section: CPSC 2150 - 001
- * AVL.cpp: This program is to test the functionality of AVL class
+ * AVL.cpp: This program is to implement the functionality of AVL class
 */
 
 
@@ -120,12 +120,23 @@ AVL<T>::AVL(): BST<T>() {
 
 }
 
+/**
+ * Get balance factor
+ * @tparam T
+ * @param r
+ * @return balance factor of a given node
+ */
 template<typename T>
 int AVL<T>::getSkewness(BSTNode<T> *r) {
     if(r == nullptr) return 0;
     return getHeightHelper(r->left) - getHeightHelper(r->right);
 }
 
+/**
+ * Delete a node in the tree
+ * @tparam T
+ * @param target
+ */
 template<typename T>
 void AVL<T>::deleteByCopying(const T &target) {
     //Calling the helper function
@@ -133,6 +144,13 @@ void AVL<T>::deleteByCopying(const T &target) {
     BST<T>::root = deleteByCopyingHelper(node, target);
 }
 
+/**
+ * Delete a specific node in the tree with a given value
+ * @tparam T, type
+ * @param r, root of the tree
+ * @param target, target value
+ * @return new root of the tree
+ */
 template<typename T>
 BSTNode<T>* AVL<T>::deleteByCopyingHelper(BSTNode<T> *r, const T &target) {
     if(r == nullptr){
@@ -141,7 +159,9 @@ BSTNode<T>* AVL<T>::deleteByCopyingHelper(BSTNode<T> *r, const T &target) {
     //Traver the tree and find the target element
     if(r->element > target) r->left = deleteByCopyingHelper(r->left, target);
     else if(r->element < target) r->right = deleteByCopyingHelper(r->right, target);
-    else{
+    else{//When find the target
+
+        //First case - No child
         if((r->left == nullptr) || (r->right == nullptr)){
             BSTNode<T>* temp = r->left ? r->left : r->right;
             if(temp == nullptr){

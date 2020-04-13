@@ -3,7 +3,7 @@
  * ID: 100304065
  * Instructor: Bita Shadgar
  * Section: CPSC 2150 - 001
- * AVL.h: This program contains AVL class. It inherites
+ * AVL.h: This program contains AVL class. It inherits from BST class.
 */
 
 #include "BST.h"
@@ -24,7 +24,7 @@ public:
 
 
 private:
-
+    //AVL Tree features
     int getSkewness(BSTNode<T>* r);
     BSTNode<T>* insertHelper(BSTNode<T>* r, const T& target);
     BSTNode<T>* rightRotate(BSTNode<T>* r);
