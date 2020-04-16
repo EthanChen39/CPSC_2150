@@ -6,7 +6,7 @@
  * testGraph.cpp: This program is to test the functionality of Graph class
 */
 #include <iostream>
-#include "Graph.cpp"
+#include "Graph.h"
 #include <ctime>
 #include <climits>
 
